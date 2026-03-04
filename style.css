@@ -1,0 +1,144 @@
+/* --- GENEL SAYFA STİLLERİ --- */
+body {
+    margin: 0;
+    overflow: hidden;
+    background-color: #050505;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none; 
+    transition: background-color 0.5s ease;
+}
+
+canvas {
+    display: block;
+    margin: 0 auto;
+    will-change: transform;
+    image-rendering: -webkit-optimize-contrast;
+    box-shadow: 0 0 50px rgba(0, 255, 255, 0.1);
+}
+
+/* --- ARAYÜZ (UI) --- */
+.overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.94); 
+    display: flex; justify-content: center; align-items: center;
+    z-index: 100; transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.hidden { display: none !important; }
+
+.menu-box {
+    background: linear-gradient(145deg, rgba(25, 25, 25, 0.95), rgba(10, 10, 10, 0.98));
+    padding: 40px; border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center; color: white;
+    box-shadow: 0 0 60px rgba(0, 150, 255, 0.15);
+    animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    max-width: 700px;
+    width: 90%;
+    max-height: 90vh; overflow-y: auto;
+    position: relative;
+}
+
+.menu-box::-webkit-scrollbar { width: 5px; }
+.menu-box::-webkit-scrollbar-thumb { background: #333; border-radius: 5px; }
+
+.menu-box h1 {
+    font-size: 2.5rem; 
+    margin: 0 0 15px 0; font-weight: 800;
+    background: -webkit-linear-gradient(#fff, #999);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+}
+
+.menu-btn {
+    display: block; width: 100%; padding: 18px; margin-bottom: 15px;
+    background: white; color: black; font-size: 1.2rem; font-weight: 800;
+    border: none; border-radius: 12px; cursor: pointer;
+    transition: all 0.2s ease; text-transform: uppercase; letter-spacing: 1px;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+    touch-action: manipulation; 
+}
+.menu-btn:active { transform: scale(0.96); background: #ddd; }
+
+/* --- MAVİ NEON BUTON STİLİ --- */
+.btn-blue-glow {
+    background: transparent;
+    border: 2px solid #00d2ff;
+    color: #00d2ff;
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.1);
+}
+.btn-blue-glow:hover {
+    background: rgba(0, 210, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+    transform: translateY(-2px);
+    color: white;
+    border-color: white;
+}
+.btn-blue-glow:active {
+    transform: scale(0.95);
+}
+
+/* --- REHBER KARTLARI --- */
+.guide-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px; margin-bottom: 30px; text-align: left;
+}
+
+.guide-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 15px; padding: 20px;
+    display: flex; flex-direction: column; gap: 10px;
+}
+.card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+.card-title { font-weight: bold; color: #00d2ff; font-size: 0.9rem; letter-spacing: 1px; }
+.card-text { font-size: 0.95rem; color: #ccc; line-height: 1.5; }
+
+/* Oyun İçi UI */
+#ui-layer { position: absolute; top: 40px; width: 100%; text-align: center; pointer-events: none; z-index: 10; }
+#score { font-family: 'Courier New', monospace; font-size: 70px; font-weight: bold; text-shadow: 0 0 20px rgba(128,128,128,0.5); transition: color 0.5s; }
+ 
+#high-score-box {
+    font-family: 'Courier New', monospace; font-size: 16px;
+    background: rgba(0, 0, 0, 0.6); 
+    padding: 5px 15px; border-radius: 20px; display: inline-block;
+    border: 2px solid #00d2ff; color: #00d2ff; font-weight: bold;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+}
+
+#pauseContainer { position: absolute; top: 25px; right: 25px; z-index: 90; }
+#pauseBtn {
+    background: rgba(128, 128, 128, 0.3); backdrop-filter: blur(5px); color: inherit;
+    font-size: 20px; width: 50px; height: 50px; border: 1px solid rgba(128,128,128,0.5); border-radius: 12px;
+    cursor: pointer; touch-action: manipulation;
+}
+
+#game-over {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background: #fff; color: #000;
+    padding: 25px; width: 300px; max-width: 85%;
+    box-sizing: border-box; border: 6px solid #000;
+    box-shadow: 0 0 50px rgba(255,0,0,0.4);
+    text-align: center; display: none; z-index: 20;
+    animation: shake 0.5s;
+}
+#retry-btn { background: black; color: white; border: none; padding: 15px 40px; font-size: 1.2rem; font-weight: bold; cursor: pointer; margin-top: 20px; touch-action: manipulation;}
+
+@keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes shake { 0% { transform: translate(-52%, -52%); } 25% { transform: translate(-48%, -48%); } 50% { transform: translate(-52%, -48%); } 75% { transform: translate(-48%, -52%); } 100% { transform: translate(-50%, -50%); } }
+ 
+/* Geri Sayım Ekranı Stili */
+#countdown-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; justify-content: center; align-items: center;
+    z-index: 105; pointer-events: none;
+    background: rgba(0,0,0,0.5); backdrop-filter: blur(5px);
+}
+#countdown-text {
+    font-size: 10rem; font-weight: 900; color: #00d2ff;
+    text-shadow: 0 0 40px rgba(0, 210, 255, 0.8);
+}
